@@ -61,11 +61,13 @@
         <div class="typo">
         	<div>
                 <block class="left">제목</block>
-                <textarea size="40" name="subject" style="width: 300pt; margin-left: 50px;"></textarea>
+                <textarea size="40" name="subject" id= "subject" style="width: 300pt; margin-left: 50px;" required oninvalid="this.setCustomValidity('제목을 입력해주세요!')"
+  oninput="this.setCustomValidity('')"></textarea>
             </div>
             <div style="margin-bottom:10px;">
                 <block class="left">글쓰기</block>
-                <textarea size = "1000" name="body" style="width: 950pt; height: 200pt; margin-right: 50px;"></textarea>
+                <textarea size = "1000" name="body" id = "content" style="width: 950pt; height: 200pt; margin-right: 50px;" required oninvalid="this.setCustomValidity('내용을 입력해주세요!')"
+  oninput="this.setCustomValidity('')"></textarea>
             </div>
             <div>
                 <block class="left">첨부파일</block>
@@ -81,6 +83,7 @@
     </form>
     <script src="https://code.jquery.com/jquery-1.11.3.js" integrity="sha256-IGWuzKD7mwUnNY01LtXxq3L84Tm/RJtNCYBfXZw3Je0=" crossorigin="anonymous"></script>
     <script> src="https://maxcdn.bootstrapcdn.com.bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfulWVxZxUPnCJA712mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="write.js"></script>
     			
 	
 </body>

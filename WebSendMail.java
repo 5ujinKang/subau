@@ -2,6 +2,7 @@ package mail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -27,6 +28,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mail.MailDAO;
+import java.io.PrintWriter;
 
 @WebServlet("/WebSendMail")
 public class WebSendMail extends HttpServlet {
@@ -39,10 +42,16 @@ public class WebSendMail extends HttpServlet {
 			try {
 				HashMap data = getMailData(request, response);
 				sendMail(data);
+				
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('수정바다에 유리병을 성공적으로 띄웠어요!'); location.href='write.jsp';</script>");
+				out.flush();
 
-				ServletContext sc = getServletContext();
+
+				/*ServletContext sc = getServletContext();
 				RequestDispatcher rd = sc.getRequestDispatcher("/thankU.jsp");
-				rd.forward(request, response);
+				rd.forward(request, response);*/
 			} catch (MessagingException ex) {
 				throw new ServletException(ex);
 			}
@@ -136,7 +145,13 @@ public class WebSendMail extends HttpServlet {
 	        //한글을 위한 인코딩
 	        msg.setHeader("Content-Type", "text/plain; charset=UTF-8");
 	        //제목
-	        msg.setSubject((String)mailData.get("subject"));
+	       /*if((mailData.get("subject")==null)||(mailData.get("body")==null)) {
+	    	   response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('수정바다에 유리병을 성공적으로 띄웠어요!'); location.href='write.jsp';</script>");
+				out.flush();
+	       }*/
+	        msg.setSubject("수정바다 유리병! :: "+(String)mailData.get("subject"));
 	        msg.setSentDate(new Date());
 	 
 	        //첨부파일이 없으면 내용만 전송
@@ -170,7 +185,7 @@ public class WebSendMail extends HttpServlet {
 			pa = new PasswordAuthentication(id, pw);
 		}
 
-		// �떆�뒪�뀥�뿉�꽌 �궗�슜�븯�뒗 �씤利앹젙蹂�
+		
 		public PasswordAuthentication getPasswordAuthentication() {
 			return pa;
 		}
